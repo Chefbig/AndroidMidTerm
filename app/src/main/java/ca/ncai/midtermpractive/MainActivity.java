@@ -14,13 +14,16 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
+    private final int STANDARD_REQUEST_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Nico", "Create");
 
-        //set up shareedPreferences
+        // set up shareedPreferences
+        // Cause exception without any notices
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
 
         Button bt = (Button) findViewById(R.id.startActivity3);
@@ -28,10 +31,26 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DialogActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                startActivityForResult(intent, STANDARD_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            TextView tv = (TextView) findViewById(R.id.showText);
+            String stringResult = data.getStringExtra("passThrough");
+            tv.setText(stringResult);
+            Toast.makeText(this, "Result: " + stringResult, Toast.LENGTH_SHORT).show();
+
+        }else
+        {
+            Toast.makeText(this, "Result_Cancelled", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -71,28 +90,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // invoked by Onclick in xml
-    public void startActivity2(View v)
-    {
+    public void startActivity2(View v) {
         Intent intent = new Intent(MainActivity.this, Main2Activity.class);
         startActivity(intent);
     }
 
 
-    public void readPreference(View v)
-    {
+    public void readPreference(View v) {
         String s = "abce";
-        String name = sharedPreferences.getString("name","No name");
+        String name = sharedPreferences.getString("name", "No name");
         TextView tv = (TextView) findViewById(R.id.showText);
         tv.setText(name);
 
-        Toast.makeText(this, "readPreference: " + name , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "readPreference: " + name, Toast.LENGTH_SHORT).show();
     }
 
     //set up shareedPreferences when activity onCreate
     //sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
 
-    public void savePreference(View v)
-    {
+    public void savePreference(View v) {
         EditText et = (EditText) findViewById(R.id.editText);
         String name = et.getText().toString();
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -100,7 +116,13 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("name", name);
         editor.apply();
 
-        Toast.makeText(this, "readPreference: " + name , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "readPreference: " + name, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void showDialog(View v)
+    {
+        Intent intent = new Intent(this, DialogActivity.class);
+        startActivity(intent);
     }
 }

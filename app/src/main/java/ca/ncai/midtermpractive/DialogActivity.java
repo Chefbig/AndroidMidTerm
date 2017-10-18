@@ -1,13 +1,17 @@
 package ca.ncai.midtermpractive;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.Window;
 
-public class DialogActivity extends AppCompatActivity {
+public class DialogActivity extends Activity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_dialog);
     }
 }
