@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +42,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, STANDARD_REQUEST_CODE);
             }
         });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinnerSource,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinnerCool = (Spinner)findViewById(R.id.spinner);
+        spinnerCool.setAdapter(adapter);
+
+        spinnerCool.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "item " + Integer.toString(i), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     @Override
@@ -149,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     public void showDialog(View v)
     {
         Intent intent = new Intent(this, DialogActivity.class);
@@ -158,6 +182,12 @@ public class MainActivity extends AppCompatActivity {
     public void startFragramentActivity(View v)
     {
         Intent intent = new Intent(this, FragmentActivity1.class);
+        startActivity(intent);
+    }
+
+    public void startRandNumActivity(View v)
+    {
+        Intent intent = new Intent(this, RandomNumberActivity.class);
         startActivity(intent);
     }
 }

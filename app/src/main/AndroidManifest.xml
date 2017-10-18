@@ -20,9 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity" />
-        <activity android:name=".DialogActivity" android:theme="@android:style/Theme.Dialog"/>
+        <activity
+            android:name=".DialogActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".FragmentActivity1" />
+        <activity android:name=".RandomNumberActivity"></activity>
     </application>
 
 </manifest>
