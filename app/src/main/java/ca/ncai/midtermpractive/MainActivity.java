@@ -154,4 +154,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DialogActivity.class);
         startActivity(intent);
     }
+
+    public void startFragramentActivity(View v)
+    {
+        Intent intent = new Intent(this, FragmentActivity1.class);
+        startActivity(intent);
+    }
 }
