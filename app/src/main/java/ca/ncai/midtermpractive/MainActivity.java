@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private final int STANDARD_REQUEST_CODE = 0;
 
+    public static final String EXTRA_MESSAGE = "ca.ncai.Message";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Nico", "Create");
 
         // set up shareedPreferences
-        // Cause exception without any notices
+        // Cause exception without any notices ...
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
 
         Button bt = (Button) findViewById(R.id.startActivity3);
@@ -92,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
     // invoked by Onclick in xml
     public void startActivity2(View v) {
         Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+
+        EditText editText = (EditText) findViewById(R.id.editText);
+
+        String text = editText.getText().toString();
+
+        intent.putExtra(EXTRA_MESSAGE, text);
         startActivity(intent);
     }
 

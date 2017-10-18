@@ -26,7 +26,6 @@ public class ResultActivity extends AppCompatActivity {
             setResult(RESULT_CANCELED);
         }else {
             intent.putExtra("passThrough", sendBackString);
-
             setResult(RESULT_OK,intent);
         }
 
